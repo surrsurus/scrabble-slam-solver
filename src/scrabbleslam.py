@@ -1,11 +1,10 @@
+from src.settings import *
+from src import card
+
 import random
 import os
 
-from src import card
-from settings import *
-
-# Turn the alphabet string into a list
-alpha = list(ALPHA)
+################################################################################
 
 # Dict exception message
 dict_except = "Dictionary path: '" + DICT_PATH + "' could not be found. \
@@ -13,18 +12,23 @@ Run your program from the correct directory \
 or make sure to specify a path in settings.py"
 
 # Load a dictionary
-def loadDict(path):
+def loadDict():
     dictionary = []
 
     # Ensure dict exists
     if os.path.isfile(DICT_PATH):
-        with open(path) as f:
+        with open(DICT_PATH) as f:
             for line in f:
                 dictionary.append(line.rstrip())
 
         return dictionary
     else:
         raise Exception(dict_except)
+
+################################################################################
+
+# Turn the alphabet string into a list
+alpha = list(ALPHA)
 
 # Create a random deck of cards
 def buildDeck():
@@ -42,6 +46,8 @@ def buildDeck():
 
     return deck
 
+################################################################################
+
 # Print the table of cards
 def printTable(deck):
     i = 0
@@ -53,6 +59,9 @@ def printTable(deck):
             print(card.front + ":" + card.back + " ")
         else:
             print(card.front + ":" + card.back + " ", end='')
+
+
+################################################################################
 
 def getLongestWord(deck, dictionary):
     longestWord = ""
@@ -86,17 +95,4 @@ def getLongestWord(deck, dictionary):
 
     return longestWord
 
-# Main
-if __name__ == "__main__":
-
-    # Load up the dictionary
-    dictionary = loadDict(DICT_PATH)
-
-    # Create a deck
-    deck = buildDeck()
-
-    # Let the user see their deck
-    printTable(deck)
-
-    # Print the longest word
-    print(getLongestWord(deck, dictionary))
+################################################################################
